@@ -1,5 +1,5 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import Card from "./Card";
 
 const Form = () => {
@@ -29,14 +29,20 @@ const Form = () => {
         </form>
 
         <div className="btn-sort-container">
-          <btn-sort id="goodToBad" onClick={() => setSortGoodBad("goodToBad")}>
-            Top
-          <span>➟</span>
-          </btn-sort>
-          <btn-sort id="badToGood" onClick={() => setSortGoodBad("badToGood")}>
-            Flop
-          <span>➟</span>
-          </btn-sort>
+          <div
+            className="btn-sort"
+            id="goodToBad"
+            onClick={() => setSortGoodBad("goodToBad")}
+          >
+            Top<span>➜</span>
+          </div>
+          <div
+            className="btn-sort"
+            id="badToGood"
+            onClick={() => setSortGoodBad("badToGood")}
+          >
+            Flop<span>➜</span>
+          </div>
         </div>
       </div>
       <div className="result">
@@ -58,3 +64,4 @@ const Form = () => {
 };
 
 export default Form;
+

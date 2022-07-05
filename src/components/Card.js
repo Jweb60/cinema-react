@@ -11,61 +11,61 @@ const Card = ({ movie }) => {
     for (let i = 0; i < movie.genre_ids.length; i++) {
       switch (movie.genre_ids[i]) {
         case 28:
-          genreArray.push("Action");
+          genreArray.push(`Action`);
           break;
         case 12:
-          genreArray.push("Aventure");
+          genreArray.push(`Aventure`);
           break;
         case 16:
-          genreArray.push("Animation");
+          genreArray.push(`Animation`);
           break;
         case 35:
-          genreArray.push("Comédie");
+          genreArray.push(`Comédie`);
           break;
         case 80:
-          genreArray.push("Crime");
+          genreArray.push(`Policier`);
           break;
         case 99:
-          genreArray.push("Documentaire");
+          genreArray.push(`Documentaire`);
           break;
         case 18:
-          genreArray.push("Drame");
+          genreArray.push(`Drame`);
           break;
         case 10751:
-          genreArray.push("Familial");
+          genreArray.push(`Famille`);
           break;
         case 14:
-          genreArray.push("Fantastique");
+          genreArray.push(`Fantasy`);
           break;
         case 36:
-          genreArray.push("Histoire");
+          genreArray.push(`Histoire`);
           break;
         case 27:
-          genreArray.push("Horreur");
+          genreArray.push(`Horreur`);
           break;
         case 10402:
-          genreArray.push("Musique");
+          genreArray.push(`Musique`);
           break;
         case 9648:
-          genreArray.push("Mystère");
+          genreArray.push(`Mystère`);
           break;
         case 10749:
-          genreArray.push("Romance");
+          genreArray.push(`Romance`);
           break;
         case 878:
-          genreArray.push("Science-Fiction");
+          genreArray.push(`Science-fiction`);
           break;
         case 10770:
-          genreArray.push("Téléfilm");
+          genreArray.push(`Téléfilm`);
           break;
         case 53:
-          genreArray.push("Thriller");
+          genreArray.push(`Thriller`);
           break;
         case 10752:
-          genreArray.push("Guerre");
+          genreArray.push(`Guerre`);
           break;
         case 37:
-          genreArray.push("Western");
+          genreArray.push(`Western`);
           break;
         default:
           break;
@@ -85,6 +85,15 @@ const Card = ({ movie }) => {
     }
   };
 
+  const deleteStorage = () => {
+    let storedData = window.localStorage.movies.split(",");
+
+    let newData = storedData.filter((id) => id != movie.id);
+
+    window.localStorage.movies = newData;
+    window.location.reload();
+  };
+
   return (
     <div className="card">
       <img
@@ -93,7 +102,7 @@ const Card = ({ movie }) => {
             ? "https://image.tmdb.org/t/p/w500" + movie.poster_path
             : "./img/poster.jpg"
         }
-        alt=""
+        alt="affiche film"
       />
       <h2>{movie.title}</h2>
       {movie.release_date ? (
@@ -101,7 +110,9 @@ const Card = ({ movie }) => {
       ) : (
         ""
       )}
-      <h3>{movie.vote_average}/10 ⭐</h3>
+      <h4>
+        {movie.vote_average}/10 <span>⭐</span>
+      </h4>
 
       <ul>
         {movie.genre_ids
@@ -110,13 +121,23 @@ const Card = ({ movie }) => {
               <li key={index}>{genre.name}</li>
             ))}
       </ul>
-
-      {movie.overview ? <h4>Synopsis</h4> : ""}
+      {movie.overview ? <h3>Synopsis</h3> : ""}
       <p>{movie.overview}</p>
 
-      <div className="btn" onClick={() => addStorage()}>
-        Ajouter aux coups de coeur
-      </div>
+      {movie.genre_ids ? (
+        <div className="btn" onClick={() => addStorage()}>
+          Ajouter aux coups de coeur
+        </div>
+      ) : (
+        <div
+          className="btn"
+          onClick={() => {
+            deleteStorage();
+          }}
+        >
+          Supprimer de la liste
+        </div>
+      )}
     </div>
   );
 };
